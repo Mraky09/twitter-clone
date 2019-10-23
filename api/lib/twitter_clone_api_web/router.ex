@@ -1,5 +1,6 @@
 defmodule TwitterCloneApiWeb.Router do
   use TwitterCloneApiWeb, :router
+  alias TwitterCloneApiWeb.SessionController
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -16,5 +17,10 @@ defmodule TwitterCloneApiWeb.Router do
   scope "/", TwitterCloneApiWeb do
     pipe_through :browser
     get "/", DefaultController, :index
+  end
+
+  scope "/sessions" do
+    post "/sign_in", SessionController, :create
+    delete "/sign_out", SessionController, :delete
   end
 end
