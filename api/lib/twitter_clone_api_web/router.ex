@@ -6,9 +6,18 @@ defmodule TwitterCloneApiWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticate do
+    plug TwitterCloneApiWeb.Plugs.Authenticate
+  end
+
   scope "/api", TwitterCloneApiWeb do
     pipe_through :api
+
+    post "/sign_in", SessionController, :create
+    resources "users", UserController, only: [:show]
+    resources "tweets", TweetController, only: [:show]
   end
+
 
   pipeline :browser do
     plug(:accepts, ["html"])

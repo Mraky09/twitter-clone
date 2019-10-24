@@ -1,6 +1,6 @@
 defmodule TwitterCloneApiWeb.SessionController do
   use TwitterCloneApiWeb, :controller
-  alias TwitterCloneApi.User
+  alias TwitterCloneApi.Accounts.User
 
   def create(conn, %{"email" => email, "password" => password}) do
     case User.sign_in(email, password) do

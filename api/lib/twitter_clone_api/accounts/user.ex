@@ -1,8 +1,8 @@
-defmodule TwitterCloneApi.User do
+defmodule TwitterCloneApi.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias TwitterCloneApi.Repo
-  alias TwitterCloneApi.User
+  alias TwitterCloneApi.Accounts.User
   alias TwitterCloneApi.AuthToken
   alias TwitterCloneApi.Services.Authenticator
 
