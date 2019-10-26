@@ -1,9 +1,7 @@
-defmodule TwitterCloneApi.AuthToken do
+defmodule TwitterCloneApi.Accounts.AuthToken do
   use Ecto.Schema
   import Ecto.Changeset
-  alias TwitterCloneApi.AuthToken
-  alias TwitterCloneApi.User
-
+  alias TwitterCloneApi.Accounts.{AuthToken, User}
 
   schema "auth_tokens" do
     belongs_to :user, User

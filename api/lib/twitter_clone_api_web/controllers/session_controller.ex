@@ -8,6 +8,7 @@ defmodule TwitterCloneApiWeb.SessionController do
         conn
         |> put_status(:ok)
         |> render("show.json", auth_token)
+
       {:error, reason} ->
         conn
         |> send_resp(401, reason)

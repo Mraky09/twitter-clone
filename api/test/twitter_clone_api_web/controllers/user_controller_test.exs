@@ -12,14 +12,14 @@ defmodule TwitterCloneApiWeb.UserControllerTest do
         |> get(Routes.user_path(conn, :show, user.id))
         |> json_response(200)
 
-        expected = %{
-          "data" => %{
-            "user" => %{
-              "id" => user.id,
-              "email" => user.email
-            }
+      expected = %{
+        "data" => %{
+          "user" => %{
+            "id" => user.id,
+            "email" => user.email
           }
         }
+      }
 
       assert response == expected
     end
@@ -35,6 +35,7 @@ defmodule TwitterCloneApiWeb.UserControllerTest do
           "detail" => "Not Found"
         }
       }
+
       assert response == expected
     end
   end

@@ -8,7 +8,7 @@ defmodule TwitterCloneApi.Services.Authenticator do
 
   def verify_token(token) do
     case Phoenix.Token.verify(@secret, @salt, token, max_age: 86400) do
-      { :ok, _id } -> { :ok, token }
+      {:ok, _id} -> {:ok, token}
       error -> error
     end
   end
@@ -23,12 +23,13 @@ defmodule TwitterCloneApi.Services.Authenticator do
   defp extract_token(conn) do
     case Plug.Conn.get_req_header(conn, "authorization") do
       [auth_header] -> get_token_from_header(auth_header)
-       _ -> {:error, :missing_auth_header}
+      _ -> {:error, :missing_auth_header}
     end
   end
 
   defp get_token_from_header(auth_header) do
     {:ok, reg} = Regex.compile("Bearer\:?\s+(.*)$", "i")
+
     case Regex.run(reg, auth_header) do
       [_, match] -> {:ok, String.trim(match)}
       _ -> {:error, "token not found"}

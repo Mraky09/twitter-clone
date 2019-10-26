@@ -2,7 +2,7 @@ defmodule TwitterCloneApiWeb.Plugs.Authenticate do
   import Plug.Conn
   alias TwitterCloneApi.Services.Authenticator
   alias TwitterCloneApi.Repo
-  alias TwitterCloneApi.AuthToken
+  alias TwitterCloneApi.Accounts.AuthToken
 
   def init(default), do: default
 
@@ -13,14 +13,16 @@ defmodule TwitterCloneApiWeb.Plugs.Authenticate do
           nil -> unauthorized(conn)
           auth_token -> authorized(conn, auth_token.user)
         end
-        _ -> unauthorized(conn)
+
+      _ ->
+        unauthorized(conn)
     end
   end
 
   defp authorized(conn, user) do
     conn
     |> assign(:signed_in, true)
-    |> assign(:signed_user, user)
+    |> assign(:current_user, user)
   end
 
   def unauthorized(conn) do

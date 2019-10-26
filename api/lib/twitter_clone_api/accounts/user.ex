@@ -1,15 +1,16 @@
 defmodule TwitterCloneApi.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+
   alias TwitterCloneApi.Repo
-  alias TwitterCloneApi.Accounts.User
-  alias TwitterCloneApi.AuthToken
+  alias TwitterCloneApi.Accounts.{User, AuthToken}
   alias TwitterCloneApi.Services.Authenticator
   alias TwitterCloneApi.Tweets.Tweet
 
   schema "users" do
     has_many :auth_tokens, AuthToken
     has_many :tweets, Tweet
+
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
@@ -30,6 +31,7 @@ defmodule TwitterCloneApi.Accounts.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+
       _ ->
         changeset
     end
@@ -40,7 +42,9 @@ defmodule TwitterCloneApi.Accounts.User do
       {:ok, user} ->
         token = Authenticator.generate_token(user)
         Repo.insert(Ecto.build_assoc(user, :auth_tokens, %{token: token}))
-      err -> err
+
+      err ->
+        err
     end
   end
 
@@ -51,7 +55,9 @@ defmodule TwitterCloneApi.Accounts.User do
           nil -> {:error, :not_found}
           auth_token -> Repo.delete(auth_token)
         end
-      error -> error
+
+      error ->
+        error
     end
   end
 end

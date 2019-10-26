@@ -4,9 +4,10 @@ defmodule TwitterCloneApi.Tweets do
   """
 
   import Ecto.Query, warn: false
-  alias TwitterCloneApi.Repo
 
+  alias TwitterCloneApi.Repo
   alias TwitterCloneApi.Tweets.Tweet
+  alias TwitterCloneApi.Accounts.User
 
   @doc """
   Returns the list of tweets.
@@ -51,10 +52,15 @@ defmodule TwitterCloneApi.Tweets do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_tweet(attrs \\ %{}) do
+  def create_tweet(%User{} = current_user, attrs \\ %{}) do
     %Tweet{}
     |> Tweet.changeset(attrs)
+    |> put_user(current_user)
     |> Repo.insert()
+  end
+
+  defp put_user(changeset, user) do
+    Ecto.Changeset.put_assoc(changeset, :user, user)
   end
 
   @doc """

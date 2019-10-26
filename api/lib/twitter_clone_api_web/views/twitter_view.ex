@@ -6,6 +6,17 @@ defmodule TwitterCloneApiWeb.TweetView do
     %{data: render_many(tweets, TweetView, "tweet.json")}
   end
 
+  def render("show.json", %{tweet: tweet}) do
+    %{
+      data: %{
+        tweet: %{
+          id: tweet.id,
+          content: tweet.content
+        }
+      }
+    }
+  end
+
   def render("tweet.json", %{tweet: tweet}) do
     %{
       id: tweet.id,
