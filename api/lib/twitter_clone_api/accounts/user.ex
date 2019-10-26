@@ -5,9 +5,11 @@ defmodule TwitterCloneApi.Accounts.User do
   alias TwitterCloneApi.Accounts.User
   alias TwitterCloneApi.AuthToken
   alias TwitterCloneApi.Services.Authenticator
+  alias TwitterCloneApi.Tweets.Tweet
 
   schema "users" do
     has_many :auth_tokens, AuthToken
+    has_many :tweets, Tweet
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true

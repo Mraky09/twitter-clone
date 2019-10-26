@@ -15,7 +15,7 @@ defmodule TwitterCloneApiWeb.Router do
 
     post "/sign_in", SessionController, :create
     resources "users", UserController, only: [:show]
-    resources "tweets", TweetController, only: [:show]
+    resources "tweets", TweetController, only: [:index, :show]
   end
 
 
