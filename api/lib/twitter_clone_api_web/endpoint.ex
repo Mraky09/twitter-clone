@@ -40,5 +40,11 @@ defmodule TwitterCloneApiWeb.Endpoint do
     key: "_twitter_clone_api_key",
     signing_salt: "W7CM+ToV"
 
+  plug Corsica,
+    origins: "http://localhost:8080",
+    allow_credentials: true,
+    allow_headers: ["Content-Type"],
+    log: [rejected: :error, invalid: :warn, accepted: :debug]
+
   plug TwitterCloneApiWeb.Router
 end

@@ -33,6 +33,6 @@ defmodule TwitterCloneApiWeb.Router do
   end
 
   scope "/sessions" do
-    post "/sign_in", SessionController, :create
+    post "/sign_in", TwitterCloneApiWeb.SessionController, :create
   end
 end

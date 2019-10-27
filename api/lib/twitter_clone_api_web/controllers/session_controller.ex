@@ -9,9 +9,11 @@ defmodule TwitterCloneApiWeb.SessionController do
         |> put_status(:ok)
         |> render("show.json", auth_token)
 
-      {:error, reason} ->
+      {:error, message} ->
         conn
-        |> send_resp(401, reason)
+        |> put_status(:unauthorized)
+        |> put_view(TwitterCloneApiWeb.ErrorView)
+        |> render("401.json", message: message)
     end
   end
 
