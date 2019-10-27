@@ -9,7 +9,13 @@
           <form @submit.prevent="signIn">
             <div class="form-group">
               <label>Your email</label>
-              <input v-model="email" class="form-control" placeholder="Email" type="email" required />
+              <input
+                v-model="email"
+                class="form-control"
+                placeholder="Email"
+                type="email"
+                required
+              />
             </div>
             <!-- form-group// -->
             <div class="form-group">
@@ -31,13 +37,13 @@
   </div>
 </template>
 <script>
-import { AUTH_REQUEST } from "../store/actions/auth";
+import { AUTH_REQUEST } from '../store/actions/auth';
 
 export default {
   data() {
     return {
-      email: "",
-      password: ""
+      email: '',
+      password: '',
     };
   },
   methods: {
@@ -45,9 +51,9 @@ export default {
       const { email, password } = this;
 
       this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
-        this.$router.push("/");
+        this.$router.push('/');
       });
-    }
-  }
+    },
+  },
 };
 </script>

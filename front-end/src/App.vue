@@ -7,4 +7,7 @@
 </template>
 
 <style>
+.container {
+  margin-top: 45px;
+}
 </style>
