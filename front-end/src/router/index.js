@@ -23,6 +23,11 @@ const routes = [
     name: 'login',
     component: () => import('../views/Login.vue'),
   },
+  {
+    path: '/:userName',
+    name: 'userPage',
+    component: () => import('../views/Profile.vue')
+  },
 ];
 
 const router = new VueRouter({
