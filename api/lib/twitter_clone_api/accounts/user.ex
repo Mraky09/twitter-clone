@@ -3,15 +3,20 @@ defmodule TwitterCloneApi.Accounts.User do
   import Ecto.Changeset
 
   alias TwitterCloneApi.Repo
-  alias TwitterCloneApi.Accounts.{User, AuthToken}
+  alias TwitterCloneApi.Accounts.{User, AuthToken, Relationship}
   alias TwitterCloneApi.Services.Authenticator
   alias TwitterCloneApi.Tweets.Tweet
 
   schema "users" do
     has_many :auth_tokens, AuthToken
     has_many :tweets, Tweet
+    has_many :following, Relationship, foreign_key: :follower_id
+    has_many :followers, Relationship, foreign_key: :followed_id
 
     field :email, :string
+    field :user_name, :string
+    field :first_name, :string
+    field :last_name, :string
     field :password_hash, :string
     field :password, :string, virtual: true
 
@@ -21,8 +26,8 @@ defmodule TwitterCloneApi.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :password])
-    |> validate_required([:email, :password])
+    |> cast(attrs, [:email, :password, :user_name, :first_name, :last_name])
+    |> validate_required([:email, :password, :user_name, :first_name, :last_name])
     |> unique_constraint(:email, downcase: true)
     |> put_password_hash()
   end

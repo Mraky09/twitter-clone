@@ -9,3 +9,15 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias TwitterCloneApi.Repo
+alias TwitterCloneApi.Accounts.User
+
+changeset = User.changeset(%User{}, %{
+  user_name: "mraky09",
+  email: "mraky09@gmail.com",
+  password: "123456",
+  first_name: "Tuan Anh",
+  last_name: "Tran Nguyen"
+})
+Repo.insert!(changeset)
