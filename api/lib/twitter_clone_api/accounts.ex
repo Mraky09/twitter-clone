@@ -54,6 +54,30 @@ defmodule TwitterCloneApi.Accounts do
   """
   def get_relationship!(id), do: Repo.get!(Relationship, id)
 
+  def get_relationship_by_follower_followed_id!(follower_id, followed_id) do
+    Relationship
+    |> Repo.get_by!([follower_id: follower_id, followed_id: followed_id])
+  end
+
+  def follow(attrs \\ %{}) do
+    %Relationship{}
+    |> Relationship.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def unfollow(%Relationship{} = relationship) do
+    Repo.delete(relationship)
+  end
+
+   def following?(follower_id, followed_id) do
+    Relationship
+    |> Repo.get_by([follower_id: follower_id, followed_id: followed_id])
+    |> relationship_exists
+  end
+
+  defp relationship_exists(relationship), do: !is_nil(relationship)
+
+
   @doc """
   Creates a relationship.
 
