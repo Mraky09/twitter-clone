@@ -25,6 +25,7 @@ defmodule TwitterCloneApiWeb.Router do
     pipe_through [:api, :api_auth]
 
     resources "/tweets", TweetController, only: [:create]
+    resources "/relationships", RelationshipController, only: [:create]
   end
 
   scope "/", TwitterCloneApiWeb do

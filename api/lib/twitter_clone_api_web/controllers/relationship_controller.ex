@@ -21,7 +21,7 @@ defmodule TwitterCloneApiWeb.RelationshipController do
     with {:ok, %Relationship{} = relationship} <- Accounts.follow(relationship_params) do
       conn
       |> put_status(:created)
-      |> render("show,json", relationship: relationship)
+      |> render("show.json", relationship: relationship)
     end
   end
 
